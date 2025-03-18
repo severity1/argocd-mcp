@@ -16,6 +16,7 @@ from api.client import DEFAULT_API_URL
 import tools.session as session
 import tools.applications as applications
 import tools.settings as settings
+import tools.version as version
 
 # Load environment variables from .env file
 load_dotenv()
@@ -32,6 +33,9 @@ mcp.tool()(session.get_user_info)
 # Register settings service tools
 mcp.tool()(settings.get_settings)
 mcp.tool()(settings.get_plugins)
+
+# Register version service tool
+mcp.tool()(version.get_version)
 
 # Register application tools
 mcp.tool()(applications.list_applications)

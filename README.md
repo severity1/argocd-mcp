@@ -13,6 +13,7 @@ An MCP (Model Context Protocol) server that integrates with the ArgoCD API, enab
   - Token-based authentication with ArgoCD
   - Server settings and configuration access
   - Plugin information retrieval
+  - Version information retrieval
 - **Application Management**:
   - List and filter applications by project, name, namespace
   - Get detailed application information
@@ -53,7 +54,6 @@ The server is configured via environment variables. Here are the available confi
 |---------------------|-------------|---------------|
 | `ARGOCD_TOKEN` | ArgoCD API token | None |
 | `ARGOCD_API_URL` | ArgoCD API endpoint | https://argocd.example.com/api/v1 |
-| `ARGOCD_HOST` | Host to bind the MCP server | 127.0.0.1 |
 | `ARGOCD_VERIFY_SSL` | Verify SSL certificates | true |
 
 You can start the server in several ways:
@@ -125,7 +125,6 @@ Create a `claude_desktop_config.json` configuration file:
       "env": {
         "ARGOCD_TOKEN": "your_argocd_token",
         "ARGOCD_API_URL": "https://your-argocd-server.com/api/v1",
-        "ARGOCD_HOST": "127.0.0.1",
         "ARGOCD_VERIFY_SSL": "true"
       }
     }
@@ -152,6 +151,10 @@ This configuration tells Claude Desktop how to start the MCP server automaticall
 - `get_settings`: Get ArgoCD server settings including UI, OIDC, and other configurations
 - `get_plugins`: Get information about configured ArgoCD plugins
 
+### Version Tools
+
+- `get_version`: Get version information of the API server
+
 ### Application Management Tools
 
 - `list_applications`: Get all applications with filtering options
@@ -174,6 +177,31 @@ Claude: Let me retrieve your user information.
   ⎿  {"loggedIn": true, "username": "devops-user", "iss": "argocd"}
 
 You are logged in as 'devops-user'.
+```
+
+### Getting ArgoCD Version
+
+```
+User: What version of ArgoCD is running on the server?
+
+Claude: Let me check the ArgoCD version information.
+
+⏺ argocd-mcp:get_version (MCP)
+  ⎿  {
+        "Version": "v2.9.3+5eaf684",
+        "BuildDate": "2023-09-15T14:25:11Z",
+        "GitCommit": "5eaf68452",
+        "GitTreeState": "clean",
+        "GoVersion": "go1.20.7",
+        "Compiler": "gc",
+        "Platform": "linux/amd64",
+        "KustomizeVersion": "v5.1.1",
+        "HelmVersion": "v3.12.3",
+        "KubectlVersion": "v1.27.4",
+        "JsonnetVersion": "v0.20.0"
+      }
+
+You're running ArgoCD v2.9.3, built on September 15, 2023. It's running on Linux (amd64) with Go 1.20.7, and includes Kustomize v5.1.1 and Helm v3.12.3.
 ```
 
 ### Getting ArgoCD Settings
@@ -310,7 +338,9 @@ argocd-mcp/
 ├── tools/            # MCP tools implementation
 │   ├── __init__.py
 │   ├── session.py    # Session tools (user info)
-│   └── applications.py # Application management tools
+│   ├── applications.py # Application management tools
+│   ├── settings.py   # Server settings tools
+│   └── version.py    # Version information tools
 ├── utils/            # Utility functions
 │   ├── __init__.py
 ├── server.py         # Main server entry point
