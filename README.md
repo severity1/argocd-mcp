@@ -35,7 +35,7 @@ An MCP (Model Context Protocol) server that integrates with the ArgoCD API, enab
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/argocd-mcp.git
+git clone https://github.com/severity1/argocd-mcp.git
 cd argocd-mcp
 
 # Create virtual environment and activate it
