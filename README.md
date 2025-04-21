@@ -2,6 +2,10 @@
 
 An MCP (Model Context Protocol) server that integrates with the ArgoCD API, enabling AI assistants and large language models to manage ArgoCD applications and resources through natural language interactions.
 
+<a href="https://glama.ai/mcp/servers/@severity1/argocd-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@severity1/argocd-mcp/badge" alt="argocd-mcp MCP server" />
+</a>
+
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![Python](https://img.shields.io/badge/python-3.12+-green)
 ![Type Checking](https://img.shields.io/badge/type_checking-mypy-brightgreen)
